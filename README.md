@@ -4,7 +4,9 @@ Personal configuration files managed with GNU Stow.
 ## Setup on a New System
 
 ### Prerequisites
-GNU Stow
+```bash
+sudo apt install make unzip gcc ripgrep fd-find xclipGNU Stow
+```
 
 ### Installation
 
