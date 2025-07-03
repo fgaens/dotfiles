@@ -1,0 +1,27 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Frederick Gaens
+	email = frederick@codesolutions.be
+# Please adapt and uncomment the following lines:
+#	name = Frederick Gaens
+#	email = frederick.gaens@porphyrio.com
+[core]
+	excludesfile = /Users/frederickgaens/.gitignore_global
+	autocrlf = input
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/frederickgaens/.stCommitMsg
+[pull]
+	rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	templatedir = ~/.git_template
