@@ -6,16 +6,8 @@
 #	name = Frederick Gaens
 #	email = frederick.gaens@porphyrio.com
 [core]
-	excludesfile = /Users/frederickgaens/.gitignore_global
+	excludesfile = /Users/frederickgaens/.config/git/.gitignore_global
 	autocrlf = input
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[commit]
-	template = /Users/frederickgaens/.stCommitMsg
 [pull]
 	rebase = true
 [filter "lfs"]
@@ -24,4 +16,13 @@
 	process = git-lfs filter-process
 	required = true
 [init]
-	templatedir = ~/.git_template
+	templatedir = ~/.config/git/.git_template
+
+[rerere]
+	enabled = true
+
+[includeIf "gitdir:~/development/evonik/"]
+	path = ~/.config/git/.gitconfig-evonik
+
+[includeIf "gitdir:~/development/fednot/"]
+	path = ~/.config/git/.gitconfig-fednot
