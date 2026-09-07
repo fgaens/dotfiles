@@ -1,0 +1,17 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+/"
+split_vertical = "prefix+|"
+
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "herdr-arrange.open"
+description = "arrange panes"
+
+[[keys.command]]
+key = "prefix+shift+m"
+type = "plugin_action"
+command = "herdr-arrange.open-tree"
+description = "move pane to…"

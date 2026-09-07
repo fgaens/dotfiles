@@ -4,10 +4,11 @@ Personal configuration files managed with GNU Stow.
 ## Two Setups Available
 
 ### 🏠 Main Setup (This Directory)
-Full-featured development environment for primary machines (Mac/Linux workstations).
+Development environment for the primary macOS workstation. For Linux servers, use the separate remote setup below.
 - Zsh with Zim framework
-- Neovim with Kickstart
-- Tmux with plugins
+- Neovim with lazy.nvim + fzf-lua
+- Tmux with TPM (sensible, tmux-fzf)
+- Herdr with Arrange keybindings
 - Uses GNU Stow for management
 
 ### 🌐 Remote Setup ([`remote/`](remote/))
@@ -27,8 +28,13 @@ Use this for your primary development machine.
 
 ### Prerequisites
 ```bash
-sudo apt install make unzip gcc ripgrep fd-find xclipGNU Stow
+brew install git stow zsh tmux neovim fzf ripgrep fd
 ```
+Requires fzf >= 0.48 and Neovim >= 0.9. Use a Nerd Font for file icons.
+Optional: `brew install rbenv bat` for Ruby version management and shell file previews.
+SDKMAN is initialized only if installed separately. Zim bootstrap requires `curl` (included with macOS).
+Install Herdr separately; the Arrange keybindings also require its `herdr-arrange` plugin.
+> Note: `*/` globs every directory, including `remote/` and `docs/` (which must NOT be stowed). Apply the explicit packages below.
 
 ### Installation
 
@@ -40,12 +46,31 @@ cd ~/dotfiles
 
 2. Apply configurations:
 ```bash
-# Apply all configurations
-stow */
+# Apply all configurations (explicit packages — remote/ and docs/ are separate)
+stow git zsh zim tmux nvim herdr
 
 # Or apply specific packages
-stow zsh git nvim
+stow zsh zim git nvim
 ```
+
+The `zsh` package needs `zim`. On the first shell launch Zim downloads its framework
+and installs the declared modules; after module-list edits, run `zimfw install`.
+Neovim bootstraps lazy.nvim and missing plugins on first launch.
+
+3. Install TPM if it is not already present:
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+```
+Start tmux and press `Ctrl+B`, then `Shift+I` to install the declared plugins.
+The local tmux config uses `tmux-256color`; SSH destinations need that terminfo
+entry too (`infocmp tmux-256color` on the destination checks availability).
+
+### Cross-Tool Behavior
+
+See [configuration review and operating notes](TERMINAL.md) for the
+keybinding layers, search rules, clipboard behavior, reloads, and remaining caveats.
+Herdr's `~/.config/herdr/config.toml` is managed by the `herdr` Stow package.
+Only the text configuration is tracked; plugins, sockets, logs, and session state remain local.
 
 ## Usage
 
