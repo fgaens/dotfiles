@@ -66,6 +66,13 @@ Start tmux and press `Ctrl+/`, then `Shift+I` to install the declared plugins.
 The local tmux config uses `tmux-256color`; SSH destinations need that terminfo
 entry too (`infocmp tmux-256color` on the destination checks availability).
 
+4. Install OpenCode and Claude Code if they are not already on `PATH`:
+```bash
+bash ~/dotfiles/scripts/install-coding-agents.sh
+```
+Skipped when `opencode` or `claude` is already installed. New installs use the
+official native scripts and put binaries in `~/.local/bin`.
+
 ### Cross-Tool Behavior
 
 See the [keyboard cheatsheet](CHEATSHEET.md) for zsh, tmux, and Herdr shortcuts.
@@ -116,3 +123,4 @@ This gives you a lean but comfortable terminal experience with:
 - Tmux with vim keybindings
 - Vim with essential configuration
 - Bash fallback for older systems
+- OpenCode and Claude Code, if they were not already installed

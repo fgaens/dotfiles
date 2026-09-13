@@ -91,6 +91,12 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 # ----------------------------------------------------------------------------
+# PATH
+# ----------------------------------------------------------------------------
+# Native OpenCode / Claude Code installers land here.
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PATH"
+
+# ----------------------------------------------------------------------------
 # Better Tab Completion
 # ----------------------------------------------------------------------------
 bind 'set completion-ignore-case on'

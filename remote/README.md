@@ -63,7 +63,8 @@ The script will:
 2. Install dependencies (zsh, tmux, vim, git, stow)
 3. Download zsh plugins
 4. Stow configuration files into `$HOME`
-5. Optionally set zsh as default shell
+5. Install OpenCode and Claude Code if they are not already on `PATH`
+6. Optionally set zsh as default shell
 
 ## What Gets Installed
 
@@ -89,6 +90,12 @@ The script will:
 - `.vimrc` - Vim configuration
 
 These are GNU Stow packages under `remote/{zsh,bash,tmux,vim}`. The installer runs `stow -d ~/dotfiles/remote -t ~ zsh bash tmux vim`. Do not `stow remote` from the repo root — that would also link `install.sh` and this README into `$HOME`.
+
+### Coding agents (if missing)
+- `opencode` — [OpenCode](https://opencode.ai) native installer → `~/.local/bin`
+- `claude` — [Claude Code](https://code.claude.com/docs/en/install) native installer → `~/.local/bin`
+
+Skipped when the binary is already on `PATH`. `~/.local/bin` and `~/.opencode/bin` are on the remote shell `PATH`.
 
 ## Directory Structure
 

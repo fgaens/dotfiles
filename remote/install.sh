@@ -184,6 +184,21 @@ stow_configs() {
 }
 
 # ----------------------------------------------------------------------------
+# OpenCode and Claude Code
+# ----------------------------------------------------------------------------
+
+install_coding_agents() {
+  print_step "Installing OpenCode and Claude Code if missing..."
+  local script="$DOTFILES_DIR/scripts/install-coding-agents.sh"
+  if [[ ! -f "$script" ]]; then
+    print_warning "scripts/install-coding-agents.sh not found; skipping"
+    return 0
+  fi
+  bash "$script"
+  print_success "Coding agents ready"
+}
+
+# ----------------------------------------------------------------------------
 # Set Default Shell
 # ----------------------------------------------------------------------------
 
@@ -237,6 +252,7 @@ main() {
   setup_dotfiles
   install_zsh_plugins
   stow_configs
+  install_coding_agents
   set_default_shell
 
   echo
