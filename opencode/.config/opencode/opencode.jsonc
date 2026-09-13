@@ -1,0 +1,61 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // OpenCode Quota: tuiCommandDisplay chooses whether native TUI command output appears in the session transcript or a local popup dialog.
+  // OpenCode Quota: loads the server plugin for slash commands and quota checks.
+  "plugin": [
+    "./preset-from-path.js",
+    "@slkiser/opencode-quota@latest",
+    "oh-my-opencode-slim"
+  ],
+  "provider": {
+    // Detected copilot authentication; opencode-quota added this global provider declaration.
+    "copilot": {},
+    // Detected openai authentication; opencode-quota added this global provider declaration.
+    "openai": {},
+    // Detected xai authentication; opencode-quota added this global provider declaration.
+    "xai": {}
+  },
+  "mcp": {
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v2/mcp",
+      "enabled": true,
+      "timeout": 30000
+    },
+    "jenkins": {
+      "type": "local",
+      "command": [
+        "/Users/frederickgaens/.config/opencode/bin/jenkins-mcp.sh"
+      ],
+      "enabled": true,
+      "timeout": 30000
+    }
+  },
+  // Read-only: hide Rovo write/destructive tools. Search/fetch stay enabled.
+  "tools": {
+    "atlassian_executeWrite": false,
+    "atlassian_executeDestructive": false,
+    "atlassian_create*": false,
+    "atlassian_edit*": false,
+    "atlassian_update*": false,
+    "atlassian_transition*": false,
+    "atlassian_add*": false,
+    "atlassian_delete*": false,
+    "atlassian_manage*": false,
+    "jenkins_build_item": false,
+    "jenkins_set_item_config": false,
+    "jenkins_stop_build": false,
+    "jenkins_set_node_config": false,
+    "jenkins_cancel_queue_item": false
+  },
+  // oh-my-opencode-slim replaces built-in explore/general with its own agents.
+  "agent": {
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "lsp": true
+}

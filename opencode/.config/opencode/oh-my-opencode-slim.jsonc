@@ -1,0 +1,131 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+  "preset": "personal",
+  "presets": {
+    "personal": {
+      "orchestrator": {
+        "model": "xai/grok-4.6",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*",
+          "!context7"
+        ]
+      },
+      "oracle": {
+        "model": "openai/gpt-6-astra",
+        "skills": [
+          "simplify"
+        ],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": [
+          "context7",
+          "gh_grep"
+        ]
+      },
+      "explorer": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "xai/grok-4.6",
+        "skills": [],
+        "mcps": []
+      },
+      "council": {
+        "model": "openai/gpt-5.6-sol",
+        "skills": [],
+        "mcps": []
+      }
+    },
+    "fednot": {
+      "orchestrator": {
+        "model": "xai/grok-4.6",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*",
+          "!context7"
+        ]
+      },
+      "oracle": {
+        "model": "github-copilot/gpt-5.6-sol",
+        "skills": [
+          "simplify"
+        ],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": [
+          "context7",
+          "gh_grep"
+        ]
+      },
+      "explorer": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "xai/grok-4.5",
+        "skills": [],
+        "mcps": []
+      },
+      "fixer": {
+        "model": "xai/grok-4.6",
+        "skills": [],
+        "mcps": []
+      },
+      "council": {
+        "model": "openai/gpt-5.6-sol",
+        "skills": [],
+        "mcps": []
+      }
+    }
+  },
+  "council": {
+    "default_preset": "personal",
+    "presets": {
+      "personal": {
+        "alpha": {
+          "model": "openai/gpt-5.6-sol"
+        },
+        "beta": {
+          "model": "xai/grok-4.6"
+        },
+        "gamma": {
+          "model": "openai/gpt-5.6-luna"
+        }
+      },
+      "fednot": {
+        "alpha": {
+          "model": "openai/gpt-5.6-sol"
+        },
+        "beta": {
+          "model": "github-copilot/claude-opus-4.8"
+        },
+        "gamma": {
+          "model": "xai/grok-4.6"
+        }
+      }
+    }
+  },
+  "multiplexer": {
+    "type": "auto",
+    "layout": "main-vertical"
+  }
+}
