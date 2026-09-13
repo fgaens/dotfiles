@@ -13,12 +13,16 @@ configuration schema; validate changes with the installed `herdr config check`.
 | tmux | `~/.config/tmux/tmux.conf` | Stow package `tmux` |
 | Neovim | `~/.config/nvim` | Stow package `nvim` |
 | Herdr | `~/.config/herdr/config.toml` | Stow package `herdr` |
+| OpenCode | `~/.config/opencode` | Stow package `opencode` |
 
 All current Stow links resolve correctly. The relative Neovim link is valid.
 `remote/` is a separate configuration, not the active local tmux or editor setup.
 The `herdr` package contains only `config.toml`. Do not add the rest of the live
 Herdr directory: it contains sockets, logs, session state, and machine-specific
 plugin installation paths. Install Herdr and the Arrange plugin separately.
+The `opencode` package tracks authored config only. Leave `node_modules/`,
+`package.json`, slim-bundled `skills/`, Herdr-managed `herdr-tui-session.js` and
+`plugins/herdr-agent-state.js`, `*.bak`, and `.oh-my-opencode-slim/` untracked.
 
 ## Shell Initialization
 
@@ -48,10 +52,12 @@ replacing vi redo there. These are deliberate existing mappings.
 
 | Operation | tmux | Herdr | Neovim |
 | --- | --- | --- | --- |
-| Prefix / leader | Ctrl+B | Ctrl+/ | Space |
+| Prefix / leader | Ctrl+/ | Ctrl+/ | Space |
 | Side-by-side split | Prefix, `|` | Prefix, `|` | Ctrl+W, `v` |
 | Stacked split | Prefix, `-` | Prefix, `-` (default) | Ctrl+W, `s` |
-| Navigate panes/windows | Prefix, h/j/k/l | Prefix, h/j/k/l | Ctrl+W, h/j/k/l |
+| Navigate panes | Prefix, h/j/k/l | Prefix, h/j/k/l | Ctrl+W, h/j/k/l |
+| Previous / next window or tab | Prefix, p / n | Prefix, p / n | — |
+| Previous / next session or space | Prefix, `(` / `)` | Prefix, `(` / `)` | — |
 | Reload config | Prefix, r or R | Prefix, Shift+R | Restart editor |
 | Find files | Shell Ctrl+T | Shell Ctrl+T | Ctrl+P or Space ff |
 | Preview toggle | Shell fzf F4 | Shell fzf F4 | fzf-lua F4 |

@@ -89,7 +89,9 @@ path+=("$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOME/.lms
 # ALIASES
 # ------------------------------
 alias vim="nvim"
-alias oc="opencode --auto"
+# `command` avoids zsh recursive alias expansion of `opencode`.
+alias opencode="command opencode --auto"
+alias oc="command opencode --auto"
 
 # ------------------------------
 # RBENV
@@ -107,3 +109,8 @@ if [[ -n ${SDKMAN_CANDIDATES_DIR} ]]; then
 fi
 
 path=("$HOME/.local/bin" ${path})
+
+# >>> oh-my-opencode-slim background subagents >>>
+export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+export OPENCODE_ENABLE_EXA=1
+# <<< oh-my-opencode-slim background subagents <<<

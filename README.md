@@ -9,6 +9,7 @@ Development environment for the primary macOS workstation. For Linux servers, us
 - Neovim with lazy.nvim + fzf-lua
 - Tmux with TPM (sensible, tmux-fzf)
 - Herdr with Arrange keybindings
+- OpenCode (global config, commands, Jenkins MCP wrapper)
 - Uses GNU Stow for management
 
 ### 🌐 Remote Setup ([`remote/`](remote/))
@@ -34,7 +35,7 @@ Requires fzf >= 0.48 and Neovim >= 0.9. Use a Nerd Font for file icons.
 Optional: `brew install rbenv bat` for Ruby version management and shell file previews.
 SDKMAN is initialized only if installed separately. Zim bootstrap requires `curl` (included with macOS).
 Install Herdr separately; the Arrange keybindings also require its `herdr-arrange` plugin.
-> Note: `*/` globs every directory, including `remote/` and `docs/` (which must NOT be stowed). Apply the explicit packages below.
+> Note: `*/` globs every directory, including `remote/` and `docs/` (which must NOT be stowed from this directory). Apply the explicit packages below. The remote installer stows `remote/{zsh,bash,tmux,vim}` into `$HOME` itself.
 
 ### Installation
 
@@ -47,7 +48,7 @@ cd ~/dotfiles
 2. Apply configurations:
 ```bash
 # Apply all configurations (explicit packages — remote/ and docs/ are separate)
-stow git zsh zim tmux nvim herdr
+stow git zsh zim tmux nvim herdr opencode
 
 # Or apply specific packages
 stow zsh zim git nvim
@@ -61,16 +62,21 @@ Neovim bootstraps lazy.nvim and missing plugins on first launch.
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
-Start tmux and press `Ctrl+B`, then `Shift+I` to install the declared plugins.
+Start tmux and press `Ctrl+/`, then `Shift+I` to install the declared plugins.
 The local tmux config uses `tmux-256color`; SSH destinations need that terminfo
 entry too (`infocmp tmux-256color` on the destination checks availability).
 
 ### Cross-Tool Behavior
 
+See the [keyboard cheatsheet](CHEATSHEET.md) for zsh, tmux, and Herdr shortcuts.
 See [configuration review and operating notes](TERMINAL.md) for the
 keybinding layers, search rules, clipboard behavior, reloads, and remaining caveats.
 Herdr's `~/.config/herdr/config.toml` is managed by the `herdr` Stow package.
 Only the text configuration is tracked; plugins, sockets, logs, and session state remain local.
+OpenCode's authored files under `~/.config/opencode/` are the `opencode` Stow package
+(`opencode.jsonc`, `tui.jsonc`, slim/quota config, `preset-from-path.js`, `/handoff`,
+`AGENTS.md`, and `bin/jenkins-mcp.sh`). npm deps, slim-bundled skills, Herdr
+integration plugins, backups, and `.oh-my-opencode-slim/` stay local.
 
 ## Usage
 

@@ -3,7 +3,7 @@
 # ============================================================================
 # Remote Dotfiles Bootstrap Script
 # ============================================================================
-# Quick setup for lean terminal environment on remote Linux machines
+# Quick setup for lean terminal environment on macOS and Ubuntu
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/dotfiles/main/remote/install.sh | bash
@@ -22,7 +22,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-DOTFILES_REPO="https://github.com/fgaens/dotfiles.git"
+DOTFILES_REPO="https://github.com/fgaens/dotfiles"
 DOTFILES_DIR="$HOME/dotfiles"
 PLUGIN_DIR="$HOME/.zsh-plugins"
 
@@ -55,14 +55,19 @@ command_exists() {
 # ----------------------------------------------------------------------------
 
 detect_os() {
-  if [[ -f /etc/os-release ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    OS="macos"
+  elif [[ -f /etc/os-release ]]; then
     . /etc/os-release
-    OS=$ID
-    OS_VERSION=$VERSION_ID
-  elif command_exists lsb_release; then
-    OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
+    if [[ "$ID" == "ubuntu" ]] || [[ "$ID_LIKE" == *"ubuntu"* ]] || [[ "$ID_LIKE" == *"debian"* ]]; then
+      OS="ubuntu"
+    else
+      print_error "Unsupported OS: $ID. Only macOS and Ubuntu-based systems are supported."
+      exit 1
+    fi
   else
-    OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+    print_error "Cannot detect OS. Only macOS and Ubuntu-based systems are supported."
+    exit 1
   fi
 
   print_step "Detected OS: $OS"
@@ -75,34 +80,20 @@ detect_os() {
 install_dependencies() {
   print_step "Installing dependencies..."
 
-  local packages="zsh tmux vim git curl"
+  if [[ "$OS" == "macos" ]]; then
+    # Install Homebrew if not present
+    if ! command_exists brew; then
+      print_step "Installing Homebrew..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 
-  case "$OS" in
-    ubuntu|debian)
-      sudo apt-get update -qq
-      sudo apt-get install -y $packages
-      ;;
-    fedora)
-      sudo dnf install -y $packages
-      ;;
-    centos|rhel)
-      if [[ "${OS_VERSION%%.*}" -ge 8 ]]; then
-        sudo dnf install -y $packages
-      else
-        sudo yum install -y $packages
-      fi
-      ;;
-    arch|manjaro)
-      sudo pacman -Sy --noconfirm $packages
-      ;;
-    alpine)
-      sudo apk add --no-cache $packages
-      ;;
-    *)
-      print_warning "Unknown OS. Please manually install: $packages"
-      read -p "Press enter when dependencies are installed..."
-      ;;
-  esac
+    # Install packages via Homebrew
+    brew install zsh tmux vim git curl stow 2>/dev/null || true
+  else
+    # Ubuntu/Debian
+    sudo apt-get update -qq
+    sudo apt-get install -y zsh tmux vim git curl stow
+  fi
 
   print_success "Dependencies installed"
 }
@@ -162,29 +153,34 @@ install_zsh_plugins() {
 }
 
 # ----------------------------------------------------------------------------
-# Symlink Configs
+# Stow Configs
 # ----------------------------------------------------------------------------
+# Packages live under remote/{zsh,bash,tmux,vim}. Do not stow the remote/
+# directory itself from the repo root — that would also link install.sh and
+# README.md into $HOME.
 
-symlink_configs() {
-  print_step "Symlinking configuration files..."
+stow_configs() {
+  print_step "Stowing configuration files..."
 
   local remote_dir="$DOTFILES_DIR/remote"
 
-  # Backup existing configs
+  if ! command_exists stow; then
+    print_error "stow is required but not installed"
+    exit 1
+  fi
+
   for config in .zshrc .bashrc .tmux.conf .vimrc; do
-    if [[ -f "$HOME/$config" && ! -L "$HOME/$config" ]]; then
+    local dest="$HOME/$config"
+    if [[ -L "$dest" ]]; then
+      rm "$dest"
+    elif [[ -e "$dest" ]]; then
       print_warning "Backing up existing $config to ${config}.backup"
-      mv "$HOME/$config" "$HOME/${config}.backup"
+      mv "$dest" "$HOME/${config}.backup"
     fi
   done
 
-  # Create symlinks
-  ln -sf "$remote_dir/zsh/.zshrc" "$HOME/.zshrc"
-  ln -sf "$remote_dir/bash/.bashrc" "$HOME/.bashrc"
-  ln -sf "$remote_dir/tmux/.tmux.conf" "$HOME/.tmux.conf"
-  ln -sf "$remote_dir/vim/.vimrc" "$HOME/.vimrc"
-
-  print_success "Configs symlinked"
+  stow -d "$remote_dir" -t "$HOME" zsh bash tmux vim
+  print_success "Configs stowed"
 }
 
 # ----------------------------------------------------------------------------
@@ -229,30 +225,18 @@ main() {
   echo -e "${BLUE}"
   echo "╔═══════════════════════════════════════════╗"
   echo "║  Remote Dotfiles Bootstrap               ║"
-  echo "║  Lean terminal setup for remote Linux    ║"
+  echo "║  Lean terminal setup (macOS & Ubuntu)    ║"
   echo "╚═══════════════════════════════════════════╝"
   echo -e "${NC}"
 
-  # Check if running on Linux
-  if [[ "$(uname -s)" != "Linux" ]]; then
-    print_error "This script is designed for Linux systems."
-    exit 1
-  fi
-
   # Detect OS
   detect_os
-
-  # Check for sudo if needed
-  if ! command_exists sudo && [[ $EUID -ne 0 ]]; then
-    print_error "This script requires sudo access or root privileges."
-    exit 1
-  fi
 
   # Run installation steps
   install_dependencies
   setup_dotfiles
   install_zsh_plugins
-  symlink_configs
+  stow_configs
   set_default_shell
 
   echo

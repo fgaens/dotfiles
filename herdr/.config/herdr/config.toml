@@ -3,6 +3,8 @@ onboarding = false
 [keys]
 prefix = "ctrl+/"
 split_vertical = "prefix+|"
+previous_workspace = "prefix+("
+next_workspace = "prefix+)"
 
 [[keys.command]]
 key = "prefix+m"

@@ -1,6 +1,6 @@
 # Remote Dotfiles
 
-Lean, portable terminal configuration for remote Linux servers.
+Lean, portable terminal configuration for macOS and Ubuntu systems.
 
 ## Features
 
@@ -36,7 +36,7 @@ Lean, portable terminal configuration for remote Linux servers.
 
 ## Quick Install
 
-### One-Liner (Remote Server)
+### One-Liner
 
 **Note:** First, update the `DOTFILES_REPO` URL in `install.sh` with your GitHub username!
 
@@ -59,10 +59,10 @@ bash install.sh
 ```
 
 The script will:
-1. Detect your Linux distribution
-2. Install dependencies (zsh, tmux, vim, git)
+1. Detect your OS (macOS or Ubuntu)
+2. Install dependencies (zsh, tmux, vim, git, stow)
 3. Download zsh plugins
-4. Symlink configuration files
+4. Stow configuration files into `$HOME`
 5. Optionally set zsh as default shell
 
 ## What Gets Installed
@@ -73,6 +73,8 @@ The script will:
 - `vim` - Text editor
 - `git` - Version control
 - `curl` - For downloading plugins
+- `stow` - Links the remote packages into `$HOME`
+- **macOS only**: `homebrew` (installed automatically if not present)
 
 ### Zsh Plugins (to `~/.zsh-plugins/`)
 - `zsh-syntax-highlighting` - Command syntax validation
@@ -80,11 +82,13 @@ The script will:
 - `zsh-history-substring-search` - Better history search
 - `zsh-completions` - Additional completions
 
-### Config Files (symlinked to `~/`)
+### Config Files (stowed to `~/`)
 - `.zshrc` - Zsh configuration
 - `.bashrc` - Bash fallback configuration
 - `.tmux.conf` - Tmux configuration
 - `.vimrc` - Vim configuration
+
+These are GNU Stow packages under `remote/{zsh,bash,tmux,vim}`. The installer runs `stow -d ~/dotfiles/remote -t ~ zsh bash tmux vim`. Do not `stow remote` from the repo root — that would also link `install.sh` and this README into `$HOME`.
 
 ## Directory Structure
 
@@ -160,16 +164,12 @@ export PATH="$HOME/bin:$PATH"
 source /opt/company/env.sh
 ```
 
-## Supported Linux Distributions
+## Supported Systems
 
-Tested and working on:
-- Ubuntu / Debian
-- RHEL / CentOS / Rocky Linux
-- Fedora
-- Arch Linux
-- Alpine Linux
+- macOS (via Homebrew)
+- Ubuntu / Debian-based distributions
 
-The installer auto-detects your distribution and uses the appropriate package manager.
+The installer auto-detects your OS and uses the appropriate package manager (brew or apt).
 
 ## Troubleshooting
 
@@ -203,8 +203,9 @@ echo $TERM
 
 ### Want to uninstall?
 ```bash
-# Remove symlinks
-rm ~/.zshrc ~/.bashrc ~/.tmux.conf ~/.vimrc
+# Unstow remote packages
+cd ~/dotfiles/remote
+stow -D -t "$HOME" zsh bash tmux vim
 
 # Restore backups
 mv ~/.zshrc.backup ~/.zshrc
@@ -221,8 +222,8 @@ This remote setup is intentionally minimal compared to the main dotfiles:
 - ❌ No Zim framework (plugins downloaded directly)
 - ❌ No Neovim/Kickstart (basic vim instead)
 - ❌ No TPM (tmux plugin manager)
-- ❌ No Homebrew dependencies
-- ❌ No GNU Stow (direct symlinks)
+- ✅ GNU Stow (same as the main setup; packages live under `remote/`)
+- ✅ Supports only macOS and Ubuntu (streamlined for simplicity)
 
 This keeps the setup:
 - ⚡ Fast to install

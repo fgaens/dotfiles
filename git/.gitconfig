@@ -2,9 +2,6 @@
 [user]
 	name = Frederick Gaens
 	email = frederick@codesolutions.be
-# Please adapt and uncomment the following lines:
-#	name = Frederick Gaens
-#	email = frederick.gaens@porphyrio.com
 [core]
 	excludesfile = /Users/frederickgaens/.config/git/.gitignore_global
 	autocrlf = input
