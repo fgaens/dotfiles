@@ -104,8 +104,8 @@ alias ...='cd ../..'
 # ----------------------------------------------------------------------------
 # PATH
 # ----------------------------------------------------------------------------
-# Native OpenCode / Claude Code installers land here.
-export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PATH"
+# Native Claude Code installer lands here.
+export PATH="$HOME/.local/bin:$PATH"
 
 # ----------------------------------------------------------------------------
 # Editor

@@ -9,7 +9,6 @@ Development environment for the primary macOS workstation. For Linux servers, us
 - Neovim with lazy.nvim + fzf-lua
 - Tmux with TPM (sensible, tmux-fzf)
 - Herdr with Arrange keybindings
-- OpenCode (global config, commands, Jenkins MCP wrapper)
 - Uses GNU Stow for management
 
 ### 🌐 Remote Setup ([`remote/`](remote/))
@@ -48,7 +47,7 @@ cd ~/dotfiles
 2. Apply configurations:
 ```bash
 # Apply all configurations (explicit packages — remote/ and docs/ are separate)
-stow git zsh zim tmux nvim herdr opencode
+stow git zsh zim tmux nvim herdr
 
 # Or apply specific packages
 stow zsh zim git nvim
@@ -66,12 +65,12 @@ Start tmux and press `Ctrl+/`, then `Shift+I` to install the declared plugins.
 The local tmux config uses `tmux-256color`; SSH destinations need that terminfo
 entry too (`infocmp tmux-256color` on the destination checks availability).
 
-4. Install OpenCode and Claude Code if they are not already on `PATH`:
+4. Install Claude Code if it is not already on `PATH`:
 ```bash
 bash ~/dotfiles/scripts/install-coding-agents.sh
 ```
-Skipped when `opencode` or `claude` is already installed. New installs use the
-official native scripts and put binaries in `~/.local/bin`.
+Skipped when `claude` is already installed. New installs use the
+official native script and put the binary in `~/.local/bin`.
 
 ### Cross-Tool Behavior
 
@@ -80,10 +79,6 @@ See [configuration review and operating notes](TERMINAL.md) for the
 keybinding layers, search rules, clipboard behavior, reloads, and remaining caveats.
 Herdr's `~/.config/herdr/config.toml` is managed by the `herdr` Stow package.
 Only the text configuration is tracked; plugins, sockets, logs, and session state remain local.
-OpenCode's authored files under `~/.config/opencode/` are the `opencode` Stow package
-(`opencode.jsonc`, `tui.jsonc`, slim/quota config, `preset-from-path.js`, `/handoff`,
-`AGENTS.md`, and `bin/jenkins-mcp.sh`). npm deps, slim-bundled skills, Herdr
-integration plugins, backups, and `.oh-my-opencode-slim/` stay local.
 
 ## Usage
 
@@ -123,4 +118,4 @@ This gives you a lean but comfortable terminal experience with:
 - Tmux with vim keybindings
 - Vim with essential configuration
 - Bash fallback for older systems
-- OpenCode and Claude Code, if they were not already installed
+- Claude Code, if it was not already installed

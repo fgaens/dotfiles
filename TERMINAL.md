@@ -13,16 +13,12 @@ configuration schema; validate changes with the installed `herdr config check`.
 | tmux | `~/.config/tmux/tmux.conf` | Stow package `tmux` |
 | Neovim | `~/.config/nvim` | Stow package `nvim` |
 | Herdr | `~/.config/herdr/config.toml` | Stow package `herdr` |
-| OpenCode | `~/.config/opencode` | Stow package `opencode` |
 
 All current Stow links resolve correctly. The relative Neovim link is valid.
 `remote/` is a separate configuration, not the active local tmux or editor setup.
 The `herdr` package contains only `config.toml`. Do not add the rest of the live
 Herdr directory: it contains sockets, logs, session state, and machine-specific
 plugin installation paths. Install Herdr and the Arrange plugin separately.
-The `opencode` package tracks authored config only. Leave `node_modules/`,
-`package.json`, slim-bundled `skills/`, Herdr-managed `herdr-tui-session.js` and
-`plugins/herdr-agent-state.js`, `*.bak`, and `.oh-my-opencode-slim/` untracked.
 
 ## Shell Initialization
 
@@ -42,8 +38,6 @@ An existing generated initialization file cannot certify that every module
 succeeded: check startup diagnostics when changing the module list.
 
 `EDITOR` and `VISUAL` both select Neovim. rbenv and SDKMAN are optional.
-The existing `oc` alias runs `opencode --auto`, which auto-approves permissions
-not explicitly denied. It was preserved, but should only be used for trusted work.
 `k`/`j` in shell vi command mode search history substrings; arrow keys retain
 ordinary history navigation. Ctrl+R invokes fzf history even in vi command mode,
 replacing vi redo there. These are deliberate existing mappings.

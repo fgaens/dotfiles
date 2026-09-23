@@ -184,11 +184,11 @@ stow_configs() {
 }
 
 # ----------------------------------------------------------------------------
-# OpenCode and Claude Code
+# Claude Code
 # ----------------------------------------------------------------------------
 
 install_coding_agents() {
-  print_step "Installing OpenCode and Claude Code if missing..."
+  print_step "Installing Claude Code if missing..."
   local script="$DOTFILES_DIR/scripts/install-coding-agents.sh"
   if [[ ! -f "$script" ]]; then
     print_warning "scripts/install-coding-agents.sh not found; skipping"

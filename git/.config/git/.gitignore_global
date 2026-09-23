@@ -156,9 +156,6 @@ fabric.properties
 **/TODO.md
 **/docs
 
-# OPENCODE
-**/.opencode/
-
 # TESSL
 **/.tessl
 /specs/**/*.md
