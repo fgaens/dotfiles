@@ -5,6 +5,7 @@ prefix = "ctrl+/"
 split_vertical = "prefix+|"
 previous_workspace = "prefix+("
 next_workspace = "prefix+)"
+remove_worktree = "prefix+ctrl+g"
 
 [[keys.command]]
 key = "prefix+m"
