@@ -74,7 +74,7 @@ official native script and put the binary in `~/.local/bin`.
 
 ### Cross-Tool Behavior
 
-See the [keyboard cheatsheet](CHEATSHEET.md) for zsh, tmux, and Herdr shortcuts.
+See the [cheatsheet](CHEATSHEET.md) for zsh, tmux, Herdr and Neovim shortcuts and Claude Code commands.
 See [configuration review and operating notes](TERMINAL.md) for the
 keybinding layers, search rules, clipboard behavior, reloads, and remaining caveats.
 Herdr's `~/.config/herdr/config.toml` is managed by the `herdr` Stow package.
