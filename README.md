@@ -9,7 +9,6 @@ Development environment for the primary macOS workstation. For Linux servers, us
 - Neovim with lazy.nvim + fzf-lua
 - Tmux with TPM (sensible, tmux-fzf)
 - Herdr with Arrange keybindings
-- Claude Code (user skills and `codex-usage` CLI)
 - Uses GNU Stow for management
 
 ### 🌐 Remote Setup ([`remote/`](remote/))
@@ -48,7 +47,7 @@ cd ~/dotfiles
 2. Apply configurations:
 ```bash
 # Apply all configurations (explicit packages — remote/ and docs/ are separate)
-stow git zsh zim tmux nvim herdr claude
+stow git zsh zim tmux nvim herdr
 
 # Or apply specific packages
 stow zsh zim git nvim
@@ -80,11 +79,7 @@ See [configuration review and operating notes](TERMINAL.md) for the
 keybinding layers, search rules, clipboard behavior, reloads, and remaining caveats.
 Herdr's `~/.config/herdr/config.toml` is managed by the `herdr` Stow package.
 Only the text configuration is tracked; plugins, sockets, logs, and session state remain local.
-The `claude` Stow package links the whole `~/.claude/skills/` directory, so new user skills
-land in the repo. It holds `bear-note` and `codex-usage` (invoked as `/codex-usage` in Claude Code)
-plus the `~/.local/bin/codex-usage` launcher, which prints the Codex rate-limit window from
-`~/.codex/auth.json` credentials (`! codex-usage` runs it inline without a model turn).
-`skills/synced/` is managed by Claude Code and git-ignored. The rest of `~/.claude/` stays local.
+Claude Code user skills live in the private `fgaens/skills` repository, not here.
 
 ## Usage
 
