@@ -3,7 +3,7 @@
 	name = Frederick Gaens
 	email = frederick@codesolutions.be
 [core]
-	excludesfile = /Users/frederickgaens/.config/git/.gitignore_global
+	excludesfile = ~/.config/git/.gitignore_global
 	autocrlf = input
 [pull]
 	rebase = true
@@ -22,4 +22,13 @@
 	path = ~/.config/git/.gitconfig-evonik
 
 [includeIf "gitdir:~/development/fednot/"]
+	path = ~/.config/git/.gitconfig-fednot
+
+[includeIf "gitdir:~/development/centralis/"]
+	path = ~/.config/git/.gitconfig-fednot
+
+[includeIf "gitdir:~/development/ibot/"]
+	path = ~/.config/git/.gitconfig-fednot
+
+[includeIf "gitdir:~/development/cicd/"]
 	path = ~/.config/git/.gitconfig-fednot
