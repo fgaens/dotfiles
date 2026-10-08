@@ -1,7 +1,10 @@
 onboarding = false
 
+[terminal]
+default_shell = "zsh"
+
 [keys]
-prefix = "ctrl+/"
+prefix = ["ctrl+/", "ctrl+_"]
 split_vertical = "prefix+|"
 previous_workspace = "prefix+("
 next_workspace = "prefix+)"

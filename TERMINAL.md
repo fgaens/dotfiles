@@ -66,9 +66,9 @@ The installed plugin registry is runtime-managed, not a dotfile to edit manually
 
 Remaining keyboard caveats:
 
-- Herdr Ctrl+/ depends on terminal encoding. Legacy terminals may send Ctrl+_
-  instead. Keep the current prefix if it works; test before changing terminals
-  or nesting multiplexers. Prefix twice forwards a literal prefix.
+- Herdr Ctrl+/ depends on terminal encoding. Legacy terminals such as Windows
+  Terminal send Ctrl+_ instead, so both are configured as Herdr prefixes. Test
+  before nesting multiplexers. Prefix twice forwards a literal prefix.
 - iTerm's global Shift+Enter mapping sends a newline, indistinguishable from
   Ctrl+J downstream. It can execute a shell command rather than insert a soft
   newline. This existing iTerm preference was not changed.
